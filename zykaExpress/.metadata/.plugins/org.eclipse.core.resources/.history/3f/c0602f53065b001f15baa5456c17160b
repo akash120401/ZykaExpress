@@ -1,0 +1,61 @@
+package com.zykaExpress.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.app.entities.Menu;
+import com.app.entities.OrderDetails;
+import com.app.entities.OrderStatus;
+import com.app.entities.Payment;
+import com.app.entities.Rating;
+import com.app.repository.MenuRepository;
+import com.app.repository.OrderDetailsRepository;
+import com.app.repository.PaymentRepository;
+import com.app.repository.RatingRepository;
+
+@Service
+@Transactional
+public class RestaurentServiceImpl implements IRestaurentService {
+	@Autowired
+	OrderDetailsRepository orderDetailsRepo;
+
+	@Autowired
+	RatingRepository ratingRepo;
+
+	@Autowired
+	MenuRepository menuRepo;
+
+	@Autowired
+	PaymentRepository paymentRepository;
+
+	@Override
+	public List<OrderDetails> getAllPlacedOrders(int restId) {
+		return orderDetailsRepo.getPlacedOrders(OrderStatus.PLACED, restId);
+	}
+
+	@Override
+	public List<OrderDetails> getAllAcceptedOrders(int restId) {
+
+		return orderDetailsRepo.getAcceptedOrders(OrderStatus.PLACED, restId);
+	}
+
+	@Override
+	public List<Rating> getAllRatings(int restId) {
+
+		return ratingRepo.findAllByRestaurant(restId);
+	}
+
+	@Override
+	public List<Menu> getAllMenus(int restoId) {
+
+		return menuRepo.findAllByResto(restoId);
+	}
+
+	public List<Payment> getAllAcceptedOrdersPayment(int restId) {
+
+		return paymentRepository.findAll();
+	}
+}

@@ -1,0 +1,24 @@
+package com.zykaExpress.dto;
+
+import java.util.List;
+
+import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
+
+import com.zykaExpress.model.Order;
+import com.zykaExpress.model.Payment;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class FoodOrderDto {
+
+	private Order order;
+	private List<OrderDto> orderDetails;
+	private Payment payment;
+
+	
+}
